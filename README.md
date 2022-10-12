@@ -12,7 +12,7 @@ For installation and usage instructions see [USAGE.md](USAGE.md).
 
 ## Overview of the pipelines
 
- The NGS pipeline in PALEOMIX is implemented in `paleomix/pipelines/ngs/pipeline.py` with most parameters specified in the provided `paleomix.yaml` files. Unless otherwise specified, programs cited below were run with default parameters.
+ The NGS pipeline in PALEOMIX is implemented in `paleomix/pipelines/ngs/pipeline.py` with most parameters specified in the provided `genotyping.yaml` files. Unless otherwise specified, programs cited below were run with default parameters.
 
 Mapping and genotyping is performed using the hg38 human reference genome, including alternative and decoy contigs, and other resource files distributed as part of the GATK (McKenna et al. 2010) [resource bundle](<https://gatk.broadinstitute.org/hc/en-us/articles/360035890811-Resource-bundle>).
 
@@ -38,7 +38,7 @@ The resulting BAMs are merged using `samtools merge`. Unmapped reads, secondary 
 
 Haplotypes are called for each BAM using `gatk HaplotypeCaller` with the `--emit-ref-confidence GVCF` option, and merged GVCFs are generated per interval using `gatk CombineGVCFs`, genotyped using `gatk GenotypeGVCFs`, and combined into a single VCF using `gatk GatherVcfs`. The resulting VCF is indexed using tabix.
 
-Variant recalibrartion of SNPs is carried out using 'gatk VariantRecalibrator' using annotations `ExcessHet`, `DP`, `MQ`, `QD`, `SOR`, `FS`, `ReadPosRankSum`, `MQRankSum`, and `BaseQRankSum`, and using the tranches listed in `configuration.yaml`. Resource options were `known=false,training=true,truth=true,prior=15.0` for [HapMap](https://www.sanger.ac.uk/resources/downloads/human/hapmap3.html) v3.3, `known=false,training=true,truth=true,prior=12.0` for OMNI 2.5 genotypes for 1000 Genomes samples, `known=false,training=true,truth=false,prior=10.0` for 1000 Genomes phase 1 high confidence SNPs, and `known=true,training=false,truth=false,prior=2.0` for dbSNP release 151, all from the GATK resource pack.
+Variant recalibrartion of SNPs is carried out using 'gatk VariantRecalibrator' using annotations `ExcessHet`, `DP`, `MQ`, `QD`, `SOR`, `FS`, `ReadPosRankSum`, `MQRankSum`, and `BaseQRankSum`, and using the tranches listed in `genotyping.yaml`. Resource options were `known=false,training=true,truth=true,prior=15.0` for [HapMap](https://www.sanger.ac.uk/resources/downloads/human/hapmap3.html) v3.3, `known=false,training=true,truth=true,prior=12.0` for OMNI 2.5 genotypes for 1000 Genomes samples, `known=false,training=true,truth=false,prior=10.0` for 1000 Genomes phase 1 high confidence SNPs, and `known=true,training=false,truth=false,prior=2.0` for dbSNP release 151, all from the GATK resource pack.
 
 Variant recalibration of indels is carried out using annotations `ExcessHet`, `DP`, `MQ`, `QD`, `SOR`, `FS`, `ReadPosRankSum`, and `MQRankSum`, and using the same truth sensitivity tranches as above. Resource options were `known=false,training=true,truth=true,prior=12.0` for the Mills and 1000G gold standard set of indels and `known=true,training=false,truth=false,prior=2.0` for dbSNP release 151, both from the GATK resource pack.
 

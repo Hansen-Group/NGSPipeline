@@ -32,7 +32,7 @@ The genotyping pipeline is based on [PALEOMIX](https://github.com/MikkelSchubert
     conda run --name paleomix python3 setup.py install
     ```
 
-5. Download the [GATK Resource Bundle](https://gatk.broadinstitute.org/hc/en-us/articles/360035890811-Resource-bundle) and place the files a folder named `resources` in the same folder as the pipeline configuration file (`paleomix.yaml`).
+5. Download the [GATK Resource Bundle](https://gatk.broadinstitute.org/hc/en-us/articles/360035890811-Resource-bundle) and place the files a folder named `resources` in the same folder as the pipeline configuration file (`genotyping.yaml`).
 
 ### Running the genotyping pipeline
 
@@ -51,13 +51,13 @@ paleomix ngs run genotyping.yaml
 
 ### Genotyping results
 
-By defaults, resulting genotypes will be placed in `${filename}.output` where `${filename}` corresponds to the configuration filename without the `.yaml` extension. E.g. for the configuration file included in this repository, output will be placed in `configuration.output`:
+By defaults, resulting genotypes will be placed in `${filename}.output` where `${filename}` corresponds to the configuration filename without the `.yaml` extension. E.g. for the configuration file included in this repository, output will be placed in `genotyping.output`:
 
-* The final genotypes (VCF) for all samples can be found in `configuration.output/genotypes/`.
-* Per sample alignment files (BAMs) can be found `configuration.output/alignments/`.
-* Per sample haplotypes (g.VCFs) can be found in `configuration.output/haplotypes/`.
-* Statistics and reports for all stages of the pipeline are located in `configuration.output/statistics/`.
-* Temporary files can be found in `configuration.output/cache/`. This folder can safely be deleted once the pipeline has been run to completion.
+* The final genotypes (VCF) for all samples can be found in `genotyping.output/genotypes/`.
+* Per sample alignment files (BAMs) can be found `genotyping.output/alignments/`.
+* Per sample haplotypes (g.VCFs) can be found in `genotyping.output/haplotypes/`.
+* Statistics and reports for all stages of the pipeline are located in `genotyping.output/statistics/`.
+* Temporary files can be found in `genotyping.output/cache/`. This folder can safely be deleted once the pipeline has been run to completion.
 
 ## The annotation pipeline
 
