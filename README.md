@@ -1,16 +1,18 @@
 # Genotyping and Annotation Supplementary Information
 
-This repository contains supplementary information for
+This repository contains supplementary information for the genotyping and annotation pipelines used by the Hansen Group in
 
 * Gul *et al*. 2022
 * Johansen *et al.* 2022
 * Peña *et al*. 2022
 
-For installation and usage instructions see [USAGE.md](SETUP.md). [Conda](https://conda.io/) environment files, pipeline configuration files, and snapshots of pipelines are provided for each study.
+[Conda](https://conda.io/) environment files, pipeline configuration files, and snapshots of pipelines are provided for each study.
+
+For installation and usage instructions see [USAGE.md](SETUP.md).
 
 ## Overview of the pipelines
 
-The following gives a detailed summary of the steps carried out by the NGS genotyping and annotation pipeline used by the Hansen Group. The NGS pipeline in PALEOMIX is implemented in `paleomix/pipelines/ngs/pipeline.py` with most parameters specified in the provided `paleomix.yaml` files. Unless otherwise specified, programs cited below were run with default parameters.
+ The NGS pipeline in PALEOMIX is implemented in `paleomix/pipelines/ngs/pipeline.py` with most parameters specified in the provided `paleomix.yaml` files. Unless otherwise specified, programs cited below were run with default parameters.
 
 Mapping and genotyping is performed using the hg38 human reference genome, including alternative and decoy contigs, and other resource files distributed as part of the GATK (McKenna et al. 2010) [resource bundle](<https://gatk.broadinstitute.org/hc/en-us/articles/360035890811-Resource-bundle>).
 
@@ -24,7 +26,7 @@ The human reference genome is validated by the pipeline, and then indexed using 
 
 Pre-analyses quality assurance of FASTQ files is performed using `fastqc` ([FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) v0.11.9) and reports are merged using `multiqc` ([MultiQC](https://multiqc.info/) v1.10; Ewels et al. 2016). Verification of adapters and stringent validation of FASTQ reads is performed using `AdapterRemoval --identify-adapters` ([AdapterRemoval](https://github.com/MikkelSchubert/adapterremoval) v2.3.2; Schubert et al. 2016).
 
-FASTQ files are trimmed using `fastp` ([fastp](https://github.com/OpenGene/fastp) v0.20.1; Chen et al. 2018) with options `--merge --correction --low_complexity_filter --overlap_len_require 11`. The `--adapter_sequence` and `--adapter_sequence_r2` options are set using the recommended adapter sequences for the sequencing technology used. Discarded FASTQ reads and orphaned paired reads are converted to unmapped BAM alignments and tagged with read-group information using `gatk FastqToSam`. Reads are subsequently analyzed using FastQC and reports from FastQC and fastp were merged using MultiQC.
+FASTQ files are trimmed using `fastp` ([fastp](https://github.com/OpenGene/fastp) v0.20.1; Chen et al. 2018) with options `--merge --correction --low_complexity_filter --overlap_len_require 11`. The `--adapter_sequence` and `--adapter_sequence_r2` parameters are set to the recommended adapter sequences for the sequencing technology used. Discarded FASTQ reads and orphaned paired reads are converted to unmapped BAM alignments and tagged with read-group information using `gatk FastqToSam`. Reads are subsequently analyzed using FastQC and reports from FastQC and fastp were merged using MultiQC.
 
 ### 3. Mapping of trimmed reads
 
@@ -42,10 +44,8 @@ Variant recalibration of indels is carried out using annotations `ExcessHet`, `D
 
 The models are applied using `gatk ApplyVQSR` with option `--truth-sensitivity-filter-level 99.6` for SNPs and `--truth-sensitivity-filter-level 98.0` for indels. Tranche plots are created using a modified version of the R-script included with GATK (`genotyping/paleomix/resources/rscripts/ngs/tranches.r`).
 
-## Overview of annotation pipeline
+### 5. Annotation of genotypes
 
 The resulting VCFs are annotated using VEP v104 (McLaren et al. 2016) and using the Ancestral Allele, ExACpLI, GERP Conservation Scores, and [LOFTEE](https://github.com/konradjk/loftee) v1.0.3 (Karczewski et al. 2020) plugins.
 
 Custom annotation was additionally derived 1000 Genomes phased haplotypes (20201028), ClinVar release 20210821, dbSNP release 155, Ensemble GTF features release 104, GnomAD coverage summary release 3.0.1, and GnomAD sites release 3.0.
-
-See the [USAGE.md](USAGE.md) for a description of how to setup and run the pipeline.
