@@ -8,7 +8,7 @@ This repository contains supplementary information for the genotyping and annota
 
 [Conda](https://conda.io/) environment files, pipeline configuration files, and snapshots of pipelines are provided for each study.
 
-For installation and usage instructions see [USAGE.md](SETUP.md).
+For installation and usage instructions see [USAGE.md](USAGE.md).
 
 ## Overview of the pipelines
 
