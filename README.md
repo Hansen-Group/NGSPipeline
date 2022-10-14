@@ -16,8 +16,6 @@ For installation and usage instructions see [USAGE.md](USAGE.md).
 
 Mapping and genotyping is performed using the hg38 human reference genome, including alternative and decoy contigs, and other resource files distributed as part of the GATK (McKenna et al. 2010) [resource bundle](<https://gatk.broadinstitute.org/hc/en-us/articles/360035890811-Resource-bundle>).
 
-See the [USAGE.md](USAGE.md) for a description of how to setup and run the pipeline.
-
 ### 1. Pre-processing of reference data
 
 The human reference genome is validated by the pipeline, and then indexed using `samtools faidx` ([samtools](https://github.com/samtools/samtools) v1.11; Danecek et al. 2021), using the `gatk CreateSequenceDictionary`, and using `bwa-mem2 index` ([BWA mem2](https://github.com/bwa-mem2/bwa-mem2) v2.2.1). The reference genome is additionally split into 10 equally sized intervals using `gatk SplitIntervals`. Resource files in VCF format are indexed using `tabix` ([tabix](https://github.com/tabixio/tabix); Li 2011).
