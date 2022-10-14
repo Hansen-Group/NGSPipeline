@@ -3,7 +3,9 @@ dependencies:
   # Exact version not important, due to its use as a validator
   - bioconda::adapterremoval=2.3.2
 
-  # Replacing BWA mem2 with BWA mem should yield identical results
+  # BWA mem and BWA mem2 give identical results.
+  # BWA mem2 is faster, but requires more resources
+  - bioconda::bwa=0.7.17
   - bioconda::bwa-mem2=2.2.1
   # Available from https://github.com/lh3/bwa/tree/master/bwakit
   - bioconda::bwakit=0.7.17.dev1
