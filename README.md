@@ -1,10 +1,11 @@
 # Genotyping and Annotation Supplementary Information
 
 This repository contains supplementary information for the genotyping and annotation pipelines used by the Hansen Group in
-
-* Gul *et al*. 2022
-* Johansen *et al.* 2022
-* Peña *et al*. 2022
+| Authors  | Title  |
+|---|---|
+| [Gul *et al*. 2023](https://doi.org/10.3389/fgene.2023.1128850) | Identifying the genetic causes of phenotypically diagnosed Pakistani mucopolysaccharidoses patients by whole genome sequencing |
+| Johansen *et al.* 2023 | |
+| Peña *et al*. 2023 | |
 
 [Conda](https://conda.io/) environment files, pipeline configuration files, and snapshots of pipelines are provided for each study.
 
